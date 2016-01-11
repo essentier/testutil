@@ -9,20 +9,20 @@ import (
 
 type ResWrapper struct {
 	Resource   *gopencils.Resource
-	errHandler RestErrorHandler
+	ErrHandler RestErrorHandler
 }
 
 // Creates a new Resource.
 func (rw *ResWrapper) NewChildResource(resourceName string) *ResWrapper {
 	newRes := rw.Resource.NewChildResource(resourceName, nil)
-	newRW := &ResWrapper{errHandler: rw.errHandler, Resource: newRes}
+	newRW := &ResWrapper{ErrHandler: rw.ErrHandler, Resource: newRes}
 	return newRW
 }
 
 // Same as Res() Method, but returns a Resource with url resource/:id
 func (rw *ResWrapper) NewChildIdResource(id string) *ResWrapper {
 	newRes := rw.Resource.NewChildIdResource(id)
-	newRW := &ResWrapper{errHandler: rw.errHandler, Resource: newRes}
+	newRW := &ResWrapper{ErrHandler: rw.ErrHandler, Resource: newRes}
 	return newRW
 }
 
@@ -37,8 +37,8 @@ func (rw *ResWrapper) SetQuery(querystring map[string]string) *ResWrapper {
 func (rw *ResWrapper) Get(responseBody interface{}) *ResWrapper {
 	rw.Resource.Response = responseBody
 	_, err := rw.Resource.Get()
-	if rw.errHandler != nil {
-		rw.errHandler.HandleError(err, "REST GET failed.")
+	if rw.ErrHandler != nil {
+		rw.ErrHandler.HandleError(err, "REST GET failed.")
 	}
 	return rw
 }
@@ -47,8 +47,8 @@ func (rw *ResWrapper) Get(responseBody interface{}) *ResWrapper {
 // Call SetQuery beforehand if you want to set the query string of the HEAD request.
 func (rw *ResWrapper) Head() *ResWrapper {
 	_, err := rw.Resource.Head()
-	if rw.errHandler != nil {
-		rw.errHandler.HandleError(err, "REST HEAD failed.")
+	if rw.ErrHandler != nil {
+		rw.ErrHandler.HandleError(err, "REST HEAD failed.")
 	}
 	return rw
 }
@@ -58,8 +58,8 @@ func (rw *ResWrapper) Head() *ResWrapper {
 func (rw *ResWrapper) Put(payload interface{}, responseBody interface{}) *ResWrapper {
 	rw.Resource.Response = responseBody
 	_, err := rw.Resource.Put(payload)
-	if rw.errHandler != nil {
-		rw.errHandler.HandleError(err, "REST PUT failed.")
+	if rw.ErrHandler != nil {
+		rw.ErrHandler.HandleError(err, "REST PUT failed.")
 	}
 	return rw
 }
@@ -69,8 +69,8 @@ func (rw *ResWrapper) Put(payload interface{}, responseBody interface{}) *ResWra
 func (rw *ResWrapper) Post(payload interface{}, responseBody interface{}) *ResWrapper {
 	rw.Resource.Response = responseBody
 	_, err := rw.Resource.Post(payload)
-	if rw.errHandler != nil {
-		rw.errHandler.HandleError(err, "REST POST failed.")
+	if rw.ErrHandler != nil {
+		rw.ErrHandler.HandleError(err, "REST POST failed.")
 	}
 	return rw
 }
@@ -80,8 +80,8 @@ func (rw *ResWrapper) Post(payload interface{}, responseBody interface{}) *ResWr
 func (rw *ResWrapper) Delete(responseBody interface{}) *ResWrapper {
 	rw.Resource.Response = responseBody
 	_, err := rw.Resource.Delete()
-	if rw.errHandler != nil {
-		rw.errHandler.HandleError(err, "REST DELETE failed.")
+	if rw.ErrHandler != nil {
+		rw.ErrHandler.HandleError(err, "REST DELETE failed.")
 	}
 	return rw
 }
@@ -91,8 +91,8 @@ func (rw *ResWrapper) Delete(responseBody interface{}) *ResWrapper {
 func (rw *ResWrapper) Options(responseBody interface{}) *ResWrapper {
 	rw.Resource.Response = responseBody
 	_, err := rw.Resource.Options()
-	if rw.errHandler != nil {
-		rw.errHandler.HandleError(err, "REST OPTIONS failed.")
+	if rw.ErrHandler != nil {
+		rw.ErrHandler.HandleError(err, "REST OPTIONS failed.")
 	}
 	return rw
 }
@@ -102,8 +102,8 @@ func (rw *ResWrapper) Options(responseBody interface{}) *ResWrapper {
 func (rw *ResWrapper) Patch(payload interface{}, responseBody interface{}) *ResWrapper {
 	rw.Resource.Response = responseBody
 	_, err := rw.Resource.Patch(payload)
-	if rw.errHandler != nil {
-		rw.errHandler.HandleError(err, "REST PATCH failed.")
+	if rw.ErrHandler != nil {
+		rw.ErrHandler.HandleError(err, "REST PATCH failed.")
 	}
 	return rw
 }
