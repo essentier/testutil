@@ -36,12 +36,12 @@ func CreateRestService(serviceName string, t *testing.T) *RestService {
 
 	errHandler := &failTestRestErrHanlder{t: t}
 	api := gopencils.Api(service.GetUrl())
-	rw := &resWrapper{Resource: api, errHandler: errHandler}
+	rw := &ResWrapper{Resource: api, errHandler: errHandler}
 	return &RestService{provider: provider, Service: service, api: rw}
 }
 
 type RestService struct {
-	api      *resWrapper
+	api      *ResWrapper
 	provider model.Provider
 	Service  model.Service
 }
@@ -50,6 +50,6 @@ func (s *RestService) Release() {
 	s.provider.Release(s.Service)
 }
 
-func (s *RestService) Resource(resourceName string) *resWrapper {
+func (s *RestService) Resource(resourceName string) *ResWrapper {
 	return s.api.NewChildResource(resourceName)
 }
