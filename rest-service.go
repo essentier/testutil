@@ -23,10 +23,10 @@ func init() {
 		panic("Failed to get nomock provider. The error is " + err.Error())
 	}
 
-	err = spickspan.BuildAllInConfig(config)
-	if err != nil {
-		panic("Failed to build projects. The error is " + err.Error())
-	}
+	// err = spickspan.BuildAllInConfig(config)
+	// if err != nil {
+	// 	panic("Failed to build projects. The error is " + err.Error())
+	// }
 }
 
 func CreateRestService(serviceName string, readinessPath string, t *testing.T) *restService {
